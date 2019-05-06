@@ -1,24 +1,54 @@
 import React from 'react';
 import { Card,Button } from 'react-bootstrap';
-const Cards = (props) => {
-	return(
+class Cards extends React.Component {
+
+	constructor(props) {
+		super();
+	}
+
+	componentDidMount() {
+		this._isMounted = true;
+		if(this._isMounted) {
+			this.setState({isLoading:false})
+		}
+	}
+
+	componentWillUnmount() {
+    	this._isMounted = false;
+	}
+
+
+	renderButton() {
+		
+		if(this.props.btnn === true) {
+			return(
+				<Button onClick={()=>this.props.setMatchID(this.props.id)} variant="primary">{this.props.desc}</Button>
+			);
+		}
+	}
+
+
+	render() {
+		return(
 		<div style={{width:'300px'}}>
 		<Card >
-				 <Card.Img style={{height:'300px'}}
+				 <Card.Img style={{height:'200px'}}
 				  variant="top" 
-				  src={props.image}
+				  src={this.props.image}
 				  alt='teamImage' />
 			<Card.Body>
-				<Card.Title>{props.tname}</Card.Title>
+				<Card.Title>{this.props.tname}</Card.Title>
 				<Card.Text>
-				   Team Info
+				   {this.props.description}
 				</Card.Text>
-				<Button variant="primary">See Matches</Button>
+				{this.renderButton()}
 			</Card.Body>
 		</Card>
 		
 		</div>
 	);
+}
+
 }
 
 export default Cards;

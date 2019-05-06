@@ -51,7 +51,7 @@ check = () => {
 		return(
 		<div>
 			<div>
-				<Home onRouteChange={this.props.onRouteChange} />
+				<Home onRouteChange={this.props.onRouteChange} signInEmail={this.props.signInEmail}/>
 				<br/>
 			</div>
 			<div>
@@ -69,7 +69,11 @@ check = () => {
 								<div key = {this.teamData[i].tname}>
 									<Card
 										tname = { this.teamData[i].tname }
-										image = { this.teamData[i].image } />
+										image = { this.teamData[i].image } 
+										desc = {'More Details'}
+										btnn = {false}
+										/>
+
 									<br />
 								</div>
 

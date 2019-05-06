@@ -3,7 +3,7 @@ import Home from '../Home/Home';
 import Footer from '../Footer/Footer';
 import Scroll from '../Scroll/Scroll';
 import {MDBContainer, MDBCard, MDBCardBody,form, MDBBtn} from 'mdbreact';
-const Dashboard = ({onRouteChange}) => {
+const Dashboard = ({onRouteChange, signInEmail}) => {
 	const style = {
 		margin : '0',
 		border : '0',
@@ -12,7 +12,7 @@ const Dashboard = ({onRouteChange}) => {
 
 	return(
 		<div>
-			<Home onRouteChange={onRouteChange}/>
+			<Home onRouteChange={onRouteChange} signInEmail={signInEmail}/>
 			<Scroll>
 			<div style={style}>
 				<MDBContainer >

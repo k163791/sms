@@ -4,21 +4,59 @@ import Footer from '../Footer/Footer';
 import Scroll from '../Scroll/Scroll';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBIcon } from 'mdbreact';
 
-const Contact = ({onRouteChange}) => {
-  const style = {
+class Contact extends React.Component /*= ({onRouteChange}) =>*/ {
+
+constructor(props) {
+  super();
+  this.state = {
+    Fname : '',
+    Femail:'',
+    Fmessage:''
+  }
+}
+
+
+onNameChange = (event) => {
+  this.setState({Fname:event.target.value});
+}
+
+onEmailChange = (event) => {
+  this.setState({Femail:event.target.value});
+}
+
+onMessageChange = (event) => {
+  this.setState({Fmessage:event.target.value});
+}
+
+onSubmitMessage = () => {
+  fetch('http://localhost:3001/contact',{
+    method : 'post',
+    headers : {'Content-Type' : 'application/json'},
+    body : JSON.stringify({
+      name : this.state.Fname,
+      email : this.state.Femail,
+      message : this.state.Fmessage
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+}
+  
+render() {
+  return (
+    <div>
+      <div>
+        <Home onRouteChange={this.props.onRouteChange} signInEmail={this.props.signInEmail}/>
+      </div>
+    <div style={{
     position : 'relative',
     left : '0',
     margin : '0',
     border : '0',
     padding : '0'
-  }
-
-  return (
-    <div>
-      <div>
-        <Home onRouteChange={onRouteChange}/>
-      </div>
-    <div style={style}>
+    }}>
     <Scroll>
     <MDBContainer >
       <MDBRow>
@@ -34,9 +72,11 @@ const Contact = ({onRouteChange}) => {
                   Your name
                 </label>
                 <input
+                  onChange={this.onNameChange}
                   type="text"
                   id="defaultFormCardNameEx"
                   className="form-control"
+                  value={this.props.signInEmail}
                 />
                 <br />
                 <label
@@ -46,9 +86,11 @@ const Contact = ({onRouteChange}) => {
                   Your email
                 </label>
                 <input
+                  onChange={this.onEmailChange}
                   type="email"
                   id="defaultFormCardEmailEx"
                   className="form-control"
+                  value={this.props.signInEmail}
                 />
                 <br />
                 <label
@@ -58,13 +100,18 @@ const Contact = ({onRouteChange}) => {
                   Your message
                 </label>
                 <textarea
+                  onChange={this.onMessageChange}
                   type="text"
                   id="defaultFormContactMessageEx"
                   className="form-control"
                   rows="3"
                 />
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn className="btn btn-outline-purple" type="submit">
+                  <MDBBtn 
+                    className="btn btn-outline-purple" 
+                    type="submit"
+                    onClick={this.onSubmitMessage}
+                    >
                     Send
                     <MDBIcon far icon="paper-plane" className="ml-2" />
                   </MDBBtn>
@@ -82,6 +129,8 @@ const Contact = ({onRouteChange}) => {
     </div>
   </div>
   );
+}
+  
 };
 
 export default Contact;

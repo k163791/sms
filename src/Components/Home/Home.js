@@ -1,7 +1,7 @@
 import React from 'react';
 // import Scroll from '../Scroll/Scroll';
 import { Navbar,Nav,NavDropdown } from "react-bootstrap";
-const Home = ({ onRouteChange }) => {
+const Home = ({ onRouteChange, signInEmail }) => {
   const style = {
     display : 'flex',
     justifyContent : 'left',
@@ -29,11 +29,11 @@ const Home = ({ onRouteChange }) => {
       <Nav.Link onClick={()=>onRouteChange('Matches')} href="#matches">Matches</Nav.Link>
       <Nav.Link onClick={()=>onRouteChange('Contact')} href="#contact">Contact</Nav.Link>
     </Nav>
-     <NavDropdown title="User" id="basic-nav-dropdown">
-        <NavDropdown.Item onClick={()=>onRouteChange('Profile')} href="#action/3.1">Profile</NavDropdown.Item>
-        <NavDropdown.Item onClick={()=>onRouteChange('Dashboard')} href="#action/3.2">Dashboard</NavDropdown.Item>
+     <NavDropdown title={signInEmail} id="basic-nav-dropdown">
+        <NavDropdown.Item onClick={()=>onRouteChange('Profile')} href="#action/Profile">Profile</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>onRouteChange('Dashboard')} href="#action/Dashboard">Dashboard</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={()=>onRouteChange('Login')} href="#action/3.4">Logout</NavDropdown.Item>
+        <NavDropdown.Item onClick={()=>onRouteChange('Login')} href="#action/Logout">Logout</NavDropdown.Item>
       </NavDropdown>
   </Navbar>
   </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { withAlert } from 'react-alert';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon, MDBModalFooter } from 'mdbreact';
 
 class Login extends React.Component {
@@ -12,9 +13,8 @@ constructor(props) {
 
   this.state = {
     signInEmail : '',
-    signInPassword: ''
+    signInPassword: '',
   }
-
 }
 
   
@@ -24,10 +24,10 @@ onEmailChange = (event) => {
 
 onPasswordChange = (event) => {
   this.setState({signInPassword: event.target.value})
-
 }
 
 onSubmitSignin = () => {
+  // const alert = useAlert();
   fetch('http://localhost:3001/signin', {
     method:'post',
     headers : {'Content-Type' : 'application/json'},
@@ -39,14 +39,16 @@ onSubmitSignin = () => {
   .then(response => response.json())
   .then(data => {
     if(data === `Couldn't Signin`) {
-      this.props.onRouteChange('Login');
+      this.props.alert.show('Incorrect Username or Password'); 
     } else {
       this.props.onRouteChange('Home');
+      this.props.onExec(this.state.signInEmail);
     }
   })
 }
 
 render() {
+
   return (
     <MDBContainer style={this.style}>
       <MDBRow>
@@ -139,7 +141,6 @@ render() {
     </MDBContainer>
   );
 }
-  
 };
 
-export default Login;
+export default withAlert()(Login);

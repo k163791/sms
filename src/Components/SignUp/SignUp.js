@@ -1,4 +1,5 @@
 import React from "react";
+import { withAlert } from 'react-alert';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon } from 'mdbreact';
 class SignUp extends React.Component{
   constructor(props) {
@@ -55,10 +56,12 @@ class SignUp extends React.Component{
       .then(data => {
         console.log(data);
         if (data === `Couldn't Register`) {
-          this.props.onRouteChange('SignUp');
+          this.props.alert.show(`Email already Registered`);
+          // this.props.onRouteChange('SignUp');
         }
         else {
           this.props.onRouteChange('Home');
+          this.props.onExec(this.state.signinEmail);
         }
       })
     
@@ -144,8 +147,7 @@ render() {
   );
 }
 
- 
 };
 
-export default SignUp;
+export default withAlert()(SignUp);
 
