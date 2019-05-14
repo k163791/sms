@@ -2,7 +2,7 @@ import React from 'react';
 import Home from '../Home/Home';
 import Footer from '../Footer/Footer';
 import Scroll from '../Scroll/Scroll';
-import Card from '../Card/Card';
+import Card2 from '../Card2/Card2';
 class Teams extends React.Component /*= ({onRouteChange}) =>*/ {
 constructor(props) {
 	super();
@@ -67,13 +67,16 @@ check = () => {
 						this.teamData.map((object,i) => {
 							return(
 								<div key = {this.teamData[i].tname}>
-									<Card
+									<Card2
+										setMatches = {this.props.setMatches}
+										setPlayerRecord = {this.props.setPlayerRecord}
+										onRouteChange = {this.props.onRouteChange}
+										id = {this.teamData[i].id}
 										tname = { this.teamData[i].tname }
 										image = { this.teamData[i].image } 
-										desc = {'More Details'}
-										btnn = {false}
+										desc = {'Players'}
+										desc1 = {'Matches'}
 										/>
-
 									<br />
 								</div>
 

@@ -14,6 +14,12 @@ import Bookings from './Components/Bookings/Bookings';
 import Profile from './Components/Profile/Profile';
 import BookTicket from './Components/bookTicket/bookTicket';
 import BookConfirm from './Components/BookConfirm/BookConfirm';
+import DisplayPlayers from './Components/DisplayPlayers/DisplayPlayers';
+import DisplayMatches from './Components/DisplayMatches/DisplayMatches';
+import AddMatch from './Components/AddMatches/Addmatches';
+import AddTeam from './Components/AddTeam/AddTeam.js';
+import AddPlayer from './Components/AddPlayer/AddPlayer';
+import Admin from './Components/Admin/Admin';
 // import { Provider as AlertProvider } from 'react-alert';
 // import AlertTemplate from 'react-alert-template-basic';
 import './App.css';
@@ -44,6 +50,7 @@ class App extends Component {
       team1_name : '',
       team2_name : ''
     }
+    this.matchInfo = [];
     this.matchId = '';
     this.userId = '';
     // this.sectionId = [];
@@ -52,6 +59,7 @@ class App extends Component {
     // this.PayOpt = '';
     this.secAssign = '';
     this.secPrice = '';
+    this.playerInfo = [];
   }
 
 
@@ -88,6 +96,11 @@ getTeamNames = () => {
   })
 }
 
+setMatches = (event) => {
+  this.matchInfo = event;
+  console.log(this.matchInfo);
+}
+
 onRouteChange = (route) => 
 {
   this.setState({route: route});
@@ -104,6 +117,11 @@ setMatchID = (event) => {
   console.log('matchID : ',this.matchId);
   this.getTeamNames();
   this.onRouteChange('bookTicket');
+}
+
+setPlayerRecord = (event) => {
+  this.playerInfo = event;
+  console.log(this.playerInfo)
 }
 
 setSecID = (event) => {
@@ -135,13 +153,24 @@ decideComponent = (route) => {
         </div>
         );
   } else if (this.state.route === 'Login') {
-      return <Login onRouteChange={this.onRouteChange} onExec={this.onExec} />
+      return(
+        <div>
+          <div>
+            <label onClick={()=>this.onRouteChange('admin')} style={{display:'flex',justifyContent:'right',color:'white',cursor:'pointer'}}>admin</label>
+          </div>
+          <Login onRouteChange={this.onRouteChange} onExec={this.onExec} />
+        </div>
+      )
   } else if (this.state.route === 'SignUp') {
       return <SignUp onRouteChange={this.onRouteChange} onExec={this.onExec} />
   } else if (this.state.route === 'Dashboard') {
       return <Dashboard onRouteChange={this.onRouteChange} signInEmail={this.state.signInEmail}/>
   } else if (this.state.route === 'Teams') {
-      return <Teams onRouteChange={this.onRouteChange} signInEmail={this.state.signInEmail}/>
+      return <Teams
+              setMatches={this.setMatches}
+              setPlayerRecord={this.setPlayerRecord} 
+              onRouteChange={this.onRouteChange} 
+              signInEmail={this.state.signInEmail}/>
   } else if (this.state.route === 'Contact') {
       return <Contact onRouteChange={this.onRouteChange} signInEmail={this.state.signInEmail}/>
   } else if (this.state.route === 'Matches') {
@@ -168,9 +197,10 @@ decideComponent = (route) => {
           />
   } else if (this.state.route === 'bookTicket') {
     return <BookTicket
-            setSecID = {this.setSecID}
+            setPlayerRecord = {this.setPlayerRecord}
             setPrice = {this.setPrice}
             setUserId = {this.setUserId}
+            setSecID = {this.setSecID}
             onRouteChange={this.onRouteChange} 
             matchId={this.matchId} 
             signInEmail={this.state.signInEmail}
@@ -187,6 +217,28 @@ decideComponent = (route) => {
               secAssign = {this.secAssign} 
               onRouteChange={this.onRouteChange} 
             />
+  } else if(this.state.route === 'admin') {
+    return <Admin onRouteChange={this.onRouteChange}/>
+  } else if(this.state.route === 'displayPlayer') {
+    return <DisplayPlayers
+            signInEmail={this.state.signInEmail}
+            onRouteChange={this.onRouteChange} 
+            playerInfo={this.playerInfo}
+            />
+  } else if(this.state.route === 'displayMatches') {
+          return(
+            <DisplayMatches
+              signInEmail={this.state.signInEmail}
+              matchInfo={this.matchInfo}
+              onRouteChange={this.onRouteChange}
+            />
+          );          
+  } else if(this.state.route === 'TeamAdd') {
+      return <AddTeam onRouteChange={this.onRouteChange}/>
+  } else if(this.state.route === 'AddPlayer') {
+      return <AddPlayer />
+  } else if(this.state.route === 'addMatches') {
+      return <AddMatch />
   }
 
 }

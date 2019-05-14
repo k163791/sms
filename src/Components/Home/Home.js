@@ -26,7 +26,8 @@ const Home = ({ onRouteChange, signInEmail }) => {
     <Nav className="mr-auto">
       <Nav.Link onClick={()=>onRouteChange('Home')} href="#home">Home</Nav.Link>
       <Nav.Link onClick={()=>onRouteChange('Teams')} href="#teams">Teams</Nav.Link>
-      <Nav.Link onClick={()=>onRouteChange('Matches')} href="#matches">Matches</Nav.Link>
+      {// <Nav.Link onClick={()=>onRouteChange('Matches')} href="#matches">Leagues</Nav.Link>
+    }
       <Nav.Link onClick={()=>onRouteChange('Contact')} href="#contact">Contact</Nav.Link>
     </Nav>
      <NavDropdown title={signInEmail} id="basic-nav-dropdown">

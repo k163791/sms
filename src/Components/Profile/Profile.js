@@ -125,6 +125,7 @@ render() {
 	return(
 		<div>
 			<Home onRouteChange={this.props.onRouteChange} signInEmail={this.props.signInEmail}/>
+			
 			<Scroll>
 			<MDBContainer >
 					<MDBCard >

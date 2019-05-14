@@ -146,8 +146,8 @@ class bookTicket extends React.Component {
 			                onChange={this.changePay}
 			                className="browser-default custom-select">
 			                <option>Choose Payment Method</option>
-							 <option value="Card">Card</option>
-							 <option value="Visa">Visa</option>	
+							 <option value="Card 0000xxxx4678">Card</option>
+							 <option value="Visa 00000xxxxxx2431">Visa</option>	
 							</select>
 							<MDBInput
 							onChange={this.changeSeats}

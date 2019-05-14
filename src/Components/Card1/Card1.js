@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card,Button } from 'react-bootstrap';
-class Cards extends React.Component {
-
+class Card1 extends React.Component {
 	constructor(props) {
 		super();
 	}
-
 	componentDidMount() {
+		console.log('Ticket : ',this.props.tname);
 		this._isMounted = true;
 		
 		if(this._isMounted) {
@@ -18,14 +17,16 @@ class Cards extends React.Component {
     	this._isMounted = false;
 	}
 
-
-	renderButton() {
-		
-		if(this.props.btnn === true) {
-			return(
-				<Button onClick={()=>this.props.setMatchID(this.props.id)} variant="primary">{this.props.desc}</Button>
-			);
-		}
+	cancelTicket = () => {
+		console.log(this.props.tname);
+		fetch('http://localhost:3001/cancel',{
+			method : 'post',
+			headers : {'Content-Type' : 'application/json'},
+			body : JSON.stringify({
+				id : this.props.tname
+			})
+		})
+		this.props.onRouteChange('Dashboard');
 	}
 
 	render() {
@@ -41,14 +42,13 @@ class Cards extends React.Component {
 				<Card.Text>
 				   {this.props.description}
 				</Card.Text>
-				{this.renderButton()}
+				<Button onClick={this.cancelTicket} variant="primary">{this.props.desc}</Button>
 			</Card.Body>
 		</Card>
 		
 		</div>
 	);
 }
-
 }
 
-export default Cards;
+export default Card1;
